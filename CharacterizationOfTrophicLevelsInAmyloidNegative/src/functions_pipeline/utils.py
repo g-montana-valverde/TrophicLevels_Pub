@@ -1,3 +1,4 @@
+import numpy as np
 
 SFN_names = ['VN', 'SMN', 'DAN', 'SAN', 'LN', 'CN', 'DMN']
 
