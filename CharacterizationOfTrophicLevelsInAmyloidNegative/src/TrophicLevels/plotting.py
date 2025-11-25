@@ -1,8 +1,6 @@
 MTX = nib.load(util_dir + 'dbs80_2mm.nii.gz').get_fdata()
 
-def plot_subcort(array, vmin, vmax, measure_name, out_dir):
-
-	if not os.path.exists(out_dir): os.makedirs(out_dir)
+def plot_subcort(array, vmin, vmax, measure_name, out_path):
 
 	slide=59
 	regs_subcort = np.arange(32, 50)
@@ -35,10 +33,10 @@ def plot_subcort(array, vmin, vmax, measure_name, out_dir):
 	plt.ylim(y_center - y_height / 2, y_center + y_height / 2)
 	plt.gca().invert_xaxis()
 	plt.tight_layout()
-	plt.savefig(out_dir + measure_name + '_subcort.png', dpi=150, transparent=True)
+	plt.savefig(out_path)
 	plt.close('all')
 
-def radar_plot_net(zTL_sfn, lower_threshold, upper_threshold):
+def radar_plot_net(zTL_sfn, lower_threshold, upper_threshold, out_path):
 	angles = np.linspace(0, 2 * np.pi, len(SFN_names), endpoint=False).tolist()
 	angles += angles[:1]  # close the circle
 
@@ -92,4 +90,4 @@ def radar_plot_net(zTL_sfn, lower_threshold, upper_threshold):
 	bg_norm = Normalize(vmin=np.min(r), vmax=np.max(r))
 	ax.pcolormesh(Theta, R, Z, cmap=cm.get_cmap('jet'), norm=bg_norm, shading='auto', zorder=0, alpha=0.7)
 	plt.tight_layout()
-	plt.savefig(work_dir + 'Radar_Networks.png', dpi=300)
+	plt.savefig(out_path)
