@@ -1,4 +1,4 @@
-# Trophic Levels in Healthy Controls and its Relation with Graph Metrics Pipeline
+# Trophic Levels + Graph Metrics Relation Analysis Pipeline
 
 This repository contains a full processing pipeline for:
 - Loading trophic levels, and effective connectivity matrices (GECs)
