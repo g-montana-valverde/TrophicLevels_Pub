@@ -10,9 +10,7 @@ from functions_pipeline import (
     run_GEC_metrics,
     regression_analysis,
     plot_histogram,
-    plot_correlation_with_mean,
-    radar_plot_net,    
-    R2SFN
+    plot_correlation_with_mean
 )
 
 # -------------------------------------------------------
@@ -83,13 +81,5 @@ plot_histogram(zTL, np.percentile(zTL, 33), np.percentile(zTL, 66), bins=9, , ou
 print("Plotting correlations...")
 plot_correlation_with_mean(metrics['out_in_degree_ratio_array_GEC'], TL_h, metrics['out_in_degree_ratio_array_GEC'].mean(axis=0), TL_h.mean(axis=0), 'Out-In Degree Ratio', 'Trophic Level', out_path=str(out_dir / "OutInRatio.png"))
 plot_correlation_with_mean(metrics['mean_path_len_array_GEC'], TL_h, metrics['mean_path_len_array_GEC'].mean(axis=0), TL_h.mean(axis=0), 'Mean Path Length', 'Trophic Level', out_path=str(out_dir / "MeanPathLength.png"))
-
-print("Plotting radar...")
-radar_plot_net(
-    zTL_sfn=np.mean(TL_h, axis=0),
-    lower_threshold=-0.5,
-    upper_threshold=0.5,
-    out_path=str(out_dir / "Radar.png")
-)
 
 print("Pipeline complete.")
