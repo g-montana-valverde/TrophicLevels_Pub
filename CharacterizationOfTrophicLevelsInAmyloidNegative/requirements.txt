@@ -1,0 +1,12 @@
+numpy
+scipy
+pandas
+matplotlib
+seaborn
+nibabel
+scikit-learn
+statsmodels
+tqdm
+bctpy
+neuroHarmonize
+networkx
