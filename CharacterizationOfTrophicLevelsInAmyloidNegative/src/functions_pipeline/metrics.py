@@ -52,12 +52,11 @@ def run_GEC_metrics(GEC_ALL):
 	}
 	return metrics
 
-def regression_analysis(metrics, measure_array, metric_names, graph_type):
+def regression_analysis(metrics, measure_array, metric_names):
 	# Flatten metrics and hierarchical levels for regression
 	X = np.column_stack([m.flatten() for m in metrics])
 	y = zscore(measure_array.flatten())
 	X = sm.add_constant(X)
 	model = sm.OLS(y, X).fit()
-	print(f"\nRegression results for {graph_type}:")
 	print("Predictors:", metric_names)
 	print(model.summary())
