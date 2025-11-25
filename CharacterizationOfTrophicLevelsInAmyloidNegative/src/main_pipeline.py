@@ -18,7 +18,6 @@ from functions_pipeline import (
 # -------------------------------------------------------
 parser = argparse.ArgumentParser(description="Run TL + GEC pipeline")
 parser.add_argument("--data-dir", required=True, help="Folder with MAT/CSV files")
-parser.add_argument("--atlas", required=True, help="Path to dbs80 atlas (nii.gz)")
 parser.add_argument("--out-dir", required=True, help="Where results will be saved")
 args = parser.parse_args()
 
