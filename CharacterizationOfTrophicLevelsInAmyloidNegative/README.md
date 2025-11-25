@@ -14,8 +14,11 @@ This repository contains a full processing pipeline for:
 ## Repository Structure
 
 trophic-levels-project/
+
 ├── src/TrophicLevels/ # all reusable functions
+
 ├── src/main_pipeline.py # main analysis workflow
+
 ├── data/ # raw & processed data
 
 
