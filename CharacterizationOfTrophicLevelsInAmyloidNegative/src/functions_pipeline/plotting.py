@@ -1,3 +1,28 @@
+def plot_histogram(tl_mean, lower_threshold, upper_threshold, bins, out_path):
+	zTL=zscored(tl_mean)
+
+	bins = np.linspace(-max(abs(zTL)), max(abs(zTL)), 9)
+	counts, bins, _ = plt.hist(zTL, bins=bins)
+	
+	print("hist bin edges:", bins)
+	plt.xlabel('Trophic Level (z)', fontsize=30)
+	plt.ylabel('Number of Regions', fontsize=30)
+	plt.xticks(fontsize=29)
+	plt.yticks(fontsize=29)
+	plt.gca().yaxis.set_major_locator(MaxNLocator(nbins=4))
+	
+	plt.axvline(lower_threshold, color='red', linestyle='--', linewidth=7, label=f'{lower_threshold:.2f} THR')
+	plt.axvline(upper_threshold, color='purple', linestyle='--', linewidth=7, label=f'{upper_threshold:.2f} THR')
+	plt.legend(fontsize=25, handlelength=0.5)
+	
+	plt.text(0.19, 0.55, 'Sinks\n33.3%', transform=plt.gca().transAxes, fontsize=30, color='black', va='top', ha='center')
+	plt.text(0.475, 0.55, 'M\n33.3%', transform=plt.gca().transAxes, fontsize=30, color='black', va='top', ha='center')
+	plt.text(0.81, 0.55, 'Sources\n33.3%', transform=plt.gca().transAxes, fontsize=30, color='black', va='top', ha='center')
+	
+	plt.tight_layout()
+	plt.savefig(out_path)
+	plt.close()
+
 def plot_correlation_with_mean(x, y, x_mean, y_mean, x_label, y_label, out_path):
 	
 	x_array=x.flatten()
