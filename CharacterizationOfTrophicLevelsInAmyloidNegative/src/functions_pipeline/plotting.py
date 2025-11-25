@@ -1,3 +1,5 @@
+from matplotlib.ticker import MaxNLocator
+
 def plot_histogram(tl_mean, lower_threshold, upper_threshold, bins, out_path):
 	zTL=zscored(tl_mean)
 
