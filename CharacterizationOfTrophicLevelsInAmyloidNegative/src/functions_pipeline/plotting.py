@@ -1,4 +1,11 @@
+import os
+import numpy as np
+import nibabel as nib
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from matplotlib.colors import Normalize, ListedColormap
 from matplotlib.ticker import MaxNLocator
+
 
 def plot_histogram(tl_mean, lower_threshold, upper_threshold, bins, out_path):
 	zTL=zscored(tl_mean)
