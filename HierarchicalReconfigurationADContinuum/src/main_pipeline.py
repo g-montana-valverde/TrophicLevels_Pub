@@ -4,6 +4,7 @@ import pandas as pd
 from scipy.io import loadmat, savemat
 from pathlib import Path
 import json
+from statsmodels.stats import multitest
 
 from functions_pipeline import (
     harmonize_data,
@@ -92,15 +93,15 @@ for delta in range(1, n):
 		pairwise.append((groups[i], groups[i + delta]))
 
 # 5.1. Directedness
-tc_stats = []
-tc_pvs = []
+tdir_stats = []
+tdir_pvs = []
 for a, b in pairwise:
-  tc_stat, tc_pv = run_comparisons(dir_df, demographics_df, a, b, test)
-  tc_stats.append(tc_stat)
-  tc_pvs.append(tc_pv)
+  tdir_stat, td_pv = run_comparisons(dir_h, demo, a, b, test)
+  tdir_stats.append(tdir_stat)
+  tdir_pvs.append(tdir_pv)
+_, tdir_pvs_corr= np.array(multitest.fdrcorrection(tdir_pvs))
+plot_directedness(dir_df, tdir_pvs_corr, test, out_path=str(out_dir / "DirectednessGroupComparison.png"))
 
-plot_directedness(dir_df, tc_pvs, test, work_dir + group_class + '/' + dataset_name + '/')
-  
 # -------------------------------------------------------
 # 6. Plotting
 # -------------------------------------------------------
