@@ -8,7 +8,7 @@ This repository contains a full processing pipeline for:
 
 ## Repository Structure
 
-CharacterizationOfTrophicLevelsInAMyloidNegative/
+ATN-TrophicLevels/
 
 ├── src/functions_pipeline/ # all used functions
 
