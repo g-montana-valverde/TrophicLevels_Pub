@@ -107,10 +107,7 @@ def plot_network_level_comparison(df, pvals, name, out_path):
 	for idx in range(len(np.unique(df_copy['Network'].values))):
 		y_max = df_copy[name].max()
 		y_min = df_copy[name].min()
-		if len(groups) <=4:
-			y_offset = (y_max-y_min)/15
-		else:
-			y_offset = (y_max-y_min)/20
+		y_offset = (y_max-y_min)/15
 		y = y_max + y_offset
 		for idx2, (i, j) in enumerate(pairs):
 			if pvals[idx][idx2]<0.05:
