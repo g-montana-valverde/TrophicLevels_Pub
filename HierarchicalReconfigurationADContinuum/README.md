@@ -9,7 +9,7 @@ This repository contains a full processing pipeline for:
 
 ## Repository Structure
 
-CharacterizationOfTrophicLevelsInAMyloidNegative/
+HierarchicalReconfigurationADContinuum/
 
 ├── src/functions_pipeline/ # all used functions
 
