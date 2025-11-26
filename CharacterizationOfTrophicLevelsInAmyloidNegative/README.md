@@ -12,7 +12,7 @@ This repository contains a full processing pipeline for:
 
 CharacterizationOfTrophicLevelsInAMyloidNegative/
 
-├── src/functions/ # all used functions
+├── src/functions_pipeline/ # all used functions
 
 ├── src/main_pipeline.py # main analysis workflow
 
