@@ -19,6 +19,7 @@ from functions_pipeline import (
 # -------------------------------------------------------
 parser = argparse.ArgumentParser(description="Run TL and Directedness Group Comparisons")
 parser.add_argument("--data-dir", required=True, help="Folder with MAT/CSV files")
+parser.add_argument("--deriv-dir", required=True, help="Folder with derivatives subject's ID")
 parser.add_argument("--out-dir", required=True, help="Where results will be saved")
 args = parser.parse_args()
 
