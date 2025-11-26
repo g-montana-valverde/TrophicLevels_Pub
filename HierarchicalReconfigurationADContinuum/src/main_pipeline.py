@@ -9,7 +9,9 @@ from statsmodels.stats import multitest
 from functions_pipeline import (
     harmonize_data,
 	run_comparisons,
-	plot_directedness
+	plot_directedness,
+	save_mat_for_rendering,
+	plot_network_level_comparison
 )
 
 # -------------------------------------------------------
