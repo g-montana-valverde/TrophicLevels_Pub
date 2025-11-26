@@ -4,7 +4,7 @@ This repository contains a full processing pipeline for:
 - Loading trophic levels and ATN biomarkers
 - Performing ComBat harmonization (neuroHarmonize)
 - Computing Network Level Trophic Levels and ATN from Regions
-- Computing Linear Mixed Effects Models with Ridge Regularization + Plotting Resulds
+- Computing Linear Mixed Effects Models with Ridge Regularization + Plotting Results
 
 ## Repository Structure
 
