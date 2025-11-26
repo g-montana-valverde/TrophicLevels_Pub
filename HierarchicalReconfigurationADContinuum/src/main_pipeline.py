@@ -8,6 +8,8 @@ from statsmodels.stats import multitest
 
 from functions_pipeline import (
     harmonize_data,
+	run_comparisons,
+	plot_directedness
 )
 
 # -------------------------------------------------------
@@ -100,17 +102,32 @@ for a, b in pairwise:
   tdir_stats.append(tdir_stat)
   tdir_pvs.append(tdir_pv)
 _, tdir_pvs_corr= np.array(multitest.fdrcorrection(tdir_pvs))
-plot_directedness(dir_df, tdir_pvs_corr, test, out_path=str(out_dir / "DirectednessGroupComparison.png"))
 
+# 5.2. Trophic Levels - Regions
+for a, b in pairwise:
+	tl_stat, tl_pv = run_comparisons(TL_h, demo, a, b)
+	lim=max(abs(tl_stat))
+	save_mat_for_rendering(tl_stat, 'TrophicLevels', -lim, lim, f"{a}_{b}", out_path=str(out_dir / f"RegionsGroupComparison_{a}_{b}.mat"))
+
+# 5.3. Trophic Levels - Networks
+tl_pv = []
+for net in net_names:
+	tl_pvs = []
+	for a, b in pairwise:
+		_, tl_pv_pair = run_comparisons(TL_net_h[TL_net_h['Group'].isin([a, b])][['ID', 'Group', net]], demo, a, b)
+		tl_pvs.append(tl_pv_pair)
+
+	_, tl_pv_corr = np.array(multitest.fdrcorrection(np.array(tl_pvs).flatten()))	
+	tl_pv.append(np.array(tl_pvs))
+
+	
 # -------------------------------------------------------
 # 6. Plotting
 # -------------------------------------------------------
-print("Plotting histogram...")
-zTL=zscore(TL_h.mean(axis=0))
-plot_histogram(zTL, np.percentile(zTL, 33), np.percentile(zTL, 66), bins=9, , out_path=str(out_dir / "Histogram.png"))
+print("Plotting directedness...")
+plot_directedness(dir_df, tdir_pvs_corr, out_path=str(out_dir / "DirectednessGroupComparison.png"))
 
-print("Plotting correlations...")
-plot_correlation_with_mean(metrics['out_in_degree_ratio_array_GEC'], TL_h, metrics['out_in_degree_ratio_array_GEC'].mean(axis=0), TL_h.mean(axis=0), 'Out-In Degree Ratio', 'Trophic Level', out_path=str(out_dir / "OutInRatio.png"))
-plot_correlation_with_mean(metrics['mean_path_len_array_GEC'], TL_h, metrics['mean_path_len_array_GEC'].mean(axis=0), TL_h.mean(axis=0), 'Mean Path Length', 'Trophic Level', out_path=str(out_dir / "MeanPathLength.png"))
+print("Plotting network-level...")
+plot_network_level_comparison(TL_net_h, tl_pv, 'Trophic Level', out_path=str(out_dir / "NetworksGroupComparison.png"))
 
 print("Pipeline complete.")
