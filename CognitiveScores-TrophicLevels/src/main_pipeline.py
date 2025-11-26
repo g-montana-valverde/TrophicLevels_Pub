@@ -7,11 +7,12 @@ import json
 from statsmodels.stats import multitest
 
 from functions_pipeline import (
-  harmonize_data,
-  ADAS_filtering,
-  CDR_filtering,
-  MoCA_filtering,
-  MMSE_filtering
+	harmonize_data,
+	ADAS_filtering,
+	CDR_filtering,
+	MoCA_filtering,
+	MMSE_filtering,
+	run_multiple_regression
 )
 
 # -------------------------------------------------------
@@ -77,36 +78,29 @@ assessments=['ADAS-Cog-13', 'CDR-SB', 'MoCA', 'MMSE']
 # -------------------------------------------------------
 print("Harmonizing...")
 TL_h[region_labels] = harmonize_data(tl_df[region_labels].to_numpy(), cov)
-ABeta_h[region_labels] = harmonize_data(ABeta_df[region_labels].to_numpy(), cov)
-Tau_h[region_labels] = harmonize_data(Tau_df[region_labels].to_numpy(), cov)
-GMV_h[region_labels] = harmonize_data(GMV_df[region_labels].to_numpy(), cov)
 
 # -------------------------------------------------------
 # 4. Convert to Network Level
 # -------------------------------------------------------
 print("Computing TL network-level...")
 TL_net_h = TL_h[['ID', 'Group']].copy()
-ABeta_net_h = ABeta_h[['ID', 'Group']].copy()
-Tau_net_h = Tau_h[['ID', 'Group']].copy()
-GMV_net_h = GMV_h[['ID', 'Group']].copy()
 for net in net_names:
-  regions_in_net = [region for region, sfn_map in reg2net.items() if sfn in (sfn_map or "") and region in TL_h.columns]
-  exclude_subcortical = ['hippocampus', 'amygdala', 'thalamus', 'caudate', 'accumbens', 'putamen', 'gpe', 'gpi', 'stn']
+	regions_in_net = [region for region, sfn_map in reg2net.items() if sfn in (sfn_map or "") and region in TL_h.columns]
+	exclude_subcortical = ['hippocampus', 'amygdala', 'thalamus', 'caudate', 'accumbens', 'putamen', 'gpe', 'gpi', 'stn']
 	regions_in_net = [region for region in regions_in_net if not any(keyword in region.lower() for keyword in exclude_subcortical)]
-  if regions_in_sfn:
-    TL_net_h[net] = TL_h[regions_in_net].mean(axis=1)
-    ABeta_net_h[net] = ABeta_h[regions_in_net].mean(axis=1)
-    Tau_net_h[net] = Tau_h[regions_in_net].mean(axis=1)
-    GMV_net_h[net] = GMV_h[regions_in_net].mean(axis=1)
+	if regions_in_sfn:
+		TL_net_h[net] = TL_h[regions_in_net].mean(axis=1)
 	else:
-			TL_net_h[net] = np.nan; ABeta_net_h[net] = np.nan; Tau_net_h[net] = np.nan; GMV_net_h[net] = np.nan
+		TL_net_h[net] = np.nan;
 
 # -------------------------------------------------------
-# 5. Linear Mixed Effects Models with Ridge Regularization
+# 5. Multiple Linear Regression Models
 # -------------------------------------------------------
-print("Running Linear Mixed Effects Models with Ridge Regularization...")
+print("Running Multiple Linear Regression Models...")
 
-# 5.1. LME - Region Level
-LinearMixedEffectsRidge(TL_h, ABeta_h, Tau_h, GMV_h, demo, 'TrophicLevel', out_path=str(out_dir / "RegionLevel" /))
-# 5.2. LME - Network
-LinearMixedEffectsRidge(TL_net_h, ABeta_net_h, Tau_net_h, GMV_net_h, demo, 'TrophicLevel', out_path=str(out_dir / "NetworkLevel" /))
+for test in assessments:
+	cog_df = df.copy()
+	# 5.1. MLR - Region Level
+	run_multiple_regression(TL_h, cog_df, test, demo, 'TrophicLevel', out_path=str(out_dir / "RegionLevel" /))
+	# 5.2. MLR - Network
+	run_multiple_regression(TL_net_h, cog_df, test, demo, 'TrophicLevel', out_path=str(out_dir / "NetworkLevel" /))
