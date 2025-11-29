@@ -8,6 +8,7 @@ from statsmodels.stats import multitest
 
 from functions_pipeline import (
     harmonize_data,
+	fast_permutation_test,
 	run_comparisons,
 	plot_directedness,
 	save_mat_for_rendering,
