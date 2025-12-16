@@ -122,7 +122,7 @@ for net in net_names:
 		tl_pvs.append(tl_pv_pair)
 
 	_, tl_pv_corr = np.array(multitest.fdrcorrection(np.array(tl_pvs).flatten()))	
-	tl_pv.append(np.array(tl_pvs))
+	tl_pv.append(np.array(tl_pv_corr))
 
 	
 # -------------------------------------------------------
