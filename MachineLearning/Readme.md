@@ -1,10 +1,8 @@
-# ADNI3_machine_learning
+# Machine Learning Code
 
 Package description
 ---------------------
-Pipeline for training and evaluating Machine Learning Classifiers (HC vs AD, or HC 
-vs MCI) leveraging ADNI3 structural (Voxel-Based Morphometry) and functional 
-(Turbulence) information from MRI and rs-fMRI.
+Pipeline for training and evaluating Machine Learning Classifiers
 
 Installation
 ---------------------------
