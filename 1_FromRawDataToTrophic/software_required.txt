@@ -1,0 +1,5 @@
+External software required
+
+- fMRIPrep 21.0.1
+- MRtrix3
+- MATLAB R2022b
