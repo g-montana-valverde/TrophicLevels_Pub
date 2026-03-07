@@ -42,13 +42,9 @@ for sub=1:NSUB
         f_diff_sub(sub,seed)=freq(index);
     end
     
-    ts=zscore(ts,[],2);
-    FCemp(sub,:,:)=corrcoef(ts');
 end
 
 f_diff = mean(f_diff_sub,1);
 
-FCemp=squeeze(nanmean(FCemp));
-
-save(['empirical_' group '_' atlas '.mat'], 'FCemp', 'f_diff');
+save(['fdiff_' group '_' atlas '.mat'], 'f_diff');
 

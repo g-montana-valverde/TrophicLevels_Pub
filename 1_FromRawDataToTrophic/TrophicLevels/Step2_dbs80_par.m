@@ -1,7 +1,7 @@
 
 atlas='dbs80';
 
-load(['empirical_' group '_' atlas '.mat']);
+load(['fdiff_' group '_' atlas '.mat']);
 load([group '_' atlas '.mat']);
 
 parpool('local', 6);
