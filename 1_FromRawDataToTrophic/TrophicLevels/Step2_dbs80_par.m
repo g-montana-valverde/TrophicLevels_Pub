@@ -18,8 +18,8 @@ NSUB=size(data,2);
 N=size(data{1},1);
 
 indexN=1:N;
-TR=double(TR);
-Tau=double(Tau);
+TR=3.0;
+Tau=1.0;
 sigma=0.01;
 
 Isubdiag = find(tril(ones(N),-1));
