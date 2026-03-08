@@ -1,27 +1,28 @@
-import os
-import numpy
+from pathlib import Path
+import numpy as np
 from scipy.io import loadmat, savemat
 
-GroupName='HCn'
+# Configuration
+GROUP_NAME = 'HCn'
+ATLAS = 'dbs80'
+DERIVATIVES_DIR = Path('/path/to/output/derivatives/')
+OUTPUT_DIR = Path('/path/to/output/')
+OUTPUT_FILE = OUTPUT_DIR / f'ADNI3_{GROUP_NAME}_{ATLAS}.mat'
 
-atlas= 'dbs80'
-ROIs = 80
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-derivatives = '/path/to/output/derivatives/'
+# Get sorted list of subject IDs
+subject_ids = sorted([d for d in DERIVATIVES_DIR.iterdir() if d.is_dir()])
 
-out_dir = '/path/to/output/'
+# Load time series data
+group_sample = np.empty(len(subject_ids), dtype=object)
 
-sample_file = out_dir + 'ADNI3_' + GroupName + '_' + atlas + '.mat'
+for i, subject_dir in enumerate(subject_ids):
+	mat_file = subject_dir / f'{subject_dir.name}_{ATLAS}_denoised.mat'
 
-GROUP_IDs = sorted(os.listdir(derivatives))
 
-GROUP_SAMPLE = numpy.empty(len(GROUP_IDs), dtype=object)
+	sample = loadmat(mat_file)
+	group_sample[i] = sample['ts']
 
-for i in range(0,len(GROUP_SAMPLE)):
-	
-	sample = loadmat(derivatives + GROUP_IDs[i] + '/' + GROUP_IDs[i] + '_' + atlas + '_denoised.mat')
-	
-	GROUP_SAMPLE[i] = sample['ts']
-	
-
-savemat(sample_file, {'data': GROUP_SAMPLE}, do_compression=True)
+# Save aggregated group data
+savemat(OUTPUT_FILE, {'data': group_sample}, do_compression=True)
