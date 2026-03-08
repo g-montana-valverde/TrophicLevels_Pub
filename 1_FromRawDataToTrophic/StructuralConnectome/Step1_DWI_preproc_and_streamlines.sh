@@ -6,7 +6,7 @@
 NumberOfTracks=5000000
 PhaseEncoding=j ## j- == AP and j == PA, i- == RL, i ==LR
 
-datadir=$HOME/ADNI_DWI/
+datadir=$HOME/ADNI3_DWI/
 
 cd $datadir
 
