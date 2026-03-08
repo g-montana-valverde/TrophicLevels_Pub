@@ -1,17 +1,9 @@
-from pathlib import Path
 import os
-from nilearn.maskers import NiftiLabelsMasker, NiftiMasker
+from nilearn.maskers import NiftiLabelsMasker
 import nilearn.image
 import json
 from nilearn.interfaces.fmriprep import load_confounds
 import scipy
-import sys
-import pandas as pd
-import numpy as np
-from nilearn.datasets import load_mni152_template
-import nibabel as nib
-from nilearn.signal import clean
-from nilearn import datasets
 
 
 tk = 'rest'

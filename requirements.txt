@@ -1,0 +1,20 @@
+External software required
+
+- fMRIPrep 21.0.1
+- MRtrix3
+- MATLAB R2025b
+
+Python packages required
+
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.15.2
+matplotlib==3.7.5
+seaborn==0.11.0
+statsmodels==0.14.4
+scikit-learn==1.6.1
+neuroHarmonize==2.4.5
+tqdm==4.67.1
+ptitprince==0.2.7
+bctpy==0.6.1
+networkx==3.4.2

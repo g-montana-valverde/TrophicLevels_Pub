@@ -1,8 +1,0 @@
-numpy
-pandas
-scipy
-statsmodels
-tqdm
-matplotlib
-ptitprince
-neuroHarmonize
