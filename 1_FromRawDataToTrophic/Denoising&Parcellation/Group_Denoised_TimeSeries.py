@@ -3,7 +3,7 @@ import numpy as np
 from scipy.io import loadmat, savemat
 
 # Configuration
-GROUP_NAME = 'HCn'
+GROUP_NAME = 'ADp'
 ATLAS = 'dbs80'
 DERIVATIVES_DIR = Path('/path/to/output/derivatives/')
 OUTPUT_DIR = Path('/path/to/output/')
